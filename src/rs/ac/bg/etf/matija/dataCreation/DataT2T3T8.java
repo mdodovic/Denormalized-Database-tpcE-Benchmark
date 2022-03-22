@@ -20,13 +20,13 @@ public class DataT2T3T8 {
 	private Connection databaseConnection;
 	
 	
-	public static final String customerPositionFile = "inputData/T2_130k.sql";
+	public static final String customerPositionFile = "D:/transactionMix/T2_130k.sql";
 
-	public static final String outputDataFileT2F1 = "inputData/T2T3T8_T2F1_read_130k.sql";
-	public static final String outputDataFileT3F1 = "inputData/T2T3T8_T3F1_write_130k.sql"; 
-	public static final String outputDataFileT8F2 = "inputData/T2T3T8_T8F2_write_130k.sql";
-	public static final String outputDataFileT8F6 = "inputData/T2T3T8_T8F6_write_130k.sql";
-	public static final String outputDataFileAllWrite = "inputData/T2T3T8_T3T8_all_write_130k.sql";
+	public static final String outputDataFileT2F1 = "D:/transactionMix/T2T3T8_T2F1_read_130k.sql";
+	public static final String outputDataFileT3F1 = "D:/transactionMix/T2T3T8_T3F1_write_130k.sql"; 
+	public static final String outputDataFileT8F2 = "D:/transactionMix/T2T3T8_T8F2_write_130k.sql";
+	public static final String outputDataFileT8F6 = "D:/transactionMix/T2T3T8_T8F6_write_130k.sql";
+	public static final String outputDataFileAllWrite = "D:/transactionMix/T2T3T8_T3T8_all_write_130k.sql";
 
 	// this is also output file for data generation
 

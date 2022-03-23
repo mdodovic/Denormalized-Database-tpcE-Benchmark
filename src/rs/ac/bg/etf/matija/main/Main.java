@@ -6,13 +6,12 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import rs.ac.bg.etf.matija.DTtpcE.Test1.DenormalizedChemaCreator;
-import rs.ac.bg.etf.matija.DTtpcE.Test1.DenormalizedChemaLoader;
-import rs.ac.bg.etf.matija.DTtpcE.Test1.MainDTtpcE;
-//import rs.ac.bg.etf.matija.DTtpcE.Test2.DenormalizedChemaCreator;
-//import rs.ac.bg.etf.matija.DTtpcE.Test2.DenormalizedChemaLoader;
-//import rs.ac.bg.etf.matija.DTtpcE.Test2.MainDTtpcE;
+import rs.ac.bg.etf.matija.DTtpcE.Full.DenormalizedChemaCreator;
+import rs.ac.bg.etf.matija.DTtpcE.Full.DenormalizedChemaLoader;
+import rs.ac.bg.etf.matija.DTtpcE.Full.MainDTtpcE;
 import rs.ac.bg.etf.matija.MWtpcE.IndexedViewsCreator;
 import rs.ac.bg.etf.matija.MWtpcE.MainMWtpcE;
 import rs.ac.bg.etf.matija.NTtpcE.MainNTtpcE;
@@ -28,27 +27,41 @@ public class Main {
 
 	public static final String pathToResultFolderNormalized = "./src/time_results/normalized/";
 	public static final String pathToResultFolderIndexes = "./src/time_results/indexes/";
-	public static final String pathToResultFolderDenormalized = "./src/time_results/denormalized/";
+	public static final String pathToResultFolderFullDenormalized = "./src/time_results/full_denormalized/";
+	public static final String pathToResultFolderPartialDenormalized = "./src/time_results/partial_denormalized/";
+
+	public static List<String> inputDataFileList = new ArrayList<String>();
+	public static List<String> outputResultFileList = new ArrayList<String>();
 	
-	//public static final String inputDataFile = "inputData/T2T3T8_T2F1_read_130k.sql";
-	//public static final String outputResultFile = "T2F1_read_130k";
-	//public static final String outputResultFile = "T2F1_read_130k_test2";
+	static {
+		inputDataFileList.add("inputData/T2T3T8_T2F1_read_130k.sql");
+		inputDataFileList.add("inputData/T2T3T8_T3F1_write_130k.sql");
+		inputDataFileList.add("inputData/T2T3T8_T8F2_write_130k.sql");
+		inputDataFileList.add("inputData/T2T3T8_T8F6_write_130k.sql");
+		inputDataFileList.add("inputData/T2T3T8_T3T8_all_write_130k.sql");
+
+		outputResultFileList.add("T2F1_read_130k");
+		outputResultFileList.add("T3F1_write_130k");
+		outputResultFileList.add("T8F2_write_130k");
+		outputResultFileList.add("T8F6_write_130k");
+		outputResultFileList.add("T3T8_all_write_130k");
+
+	}
 	
-	public static final String inputDataFile = "inputData/T2T3T8_T3F1_write_130k.sql";
-	public static final String outputResultFile = "T3F1_write_130k"; 		
-	//public static final String outputResultFile = "T3F1_write_130k_test2"; 
+//	public static final String inputDataFile = "inputData/T2T3T8_T2F1_read_130k.sql";
+//	public static final String outputResultFile = "T2F1_read_130k";
+	
+//	public static final String inputDataFile = "inputData/T2T3T8_T3F1_write_130k.sql";
+//	public static final String outputResultFile = "T3F1_write_130k"; 		
 	
 	//public static final String inputDataFile = "inputData/T2T3T8_T8F2_write_130k.sql";
 	//public static final String outputResultFile = "T8F2_write_130k";
-	//public static final String outputResultFile = "T8F2_write_130k_test2";
 	
 	//public static final String inputDataFile = "inputData/T2T3T8_T8F6_write_130k.sql";
 	//public static final String outputResultFile = "T8F6_write_130k";
-	//public static final String outputResultFile = "T8F6_write_130k_test2";
 	
 	//public static final String inputDataFile = "inputData/T2T3T8_T3T8_all_write_130k.sql";
 	//public static final String outputResultFile = "T3T8_all_write_130k";
-	//public static final String outputResultFile = "T3T8_all_write_130k_test2";
 	
 	public Connection getConnection() {
 		return connection;
@@ -90,16 +103,16 @@ public class Main {
 		
 	}
 	
-	public static void tpcENormalized(String fileName) {
+	public static void tpcENormalized(String inputDataFile, String outputResultFile) {
 		long start = System.nanoTime();
 
 		
 		Main database = new Main();		
 		database.connectToMSSQL();
 		
-		try (FileWriter fw1 = new FileWriter(pathToResultFolderNormalized + fileName +"_timestamp.txt");
+		try (FileWriter fw1 = new FileWriter(pathToResultFolderNormalized + outputResultFile +"_timestamp.txt");
 			PrintWriter timestamp = new PrintWriter(fw1);
-				FileWriter fw2 = new FileWriter(pathToResultFolderNormalized + fileName + "_difference.txt");
+				FileWriter fw2 = new FileWriter(pathToResultFolderNormalized + outputResultFile + "_difference.txt");
 				PrintWriter difference = new PrintWriter(fw2)){
 		
 			// Drop all indexed views if exists
@@ -131,7 +144,7 @@ public class Main {
 			long coldStart = System.nanoTime() - start;
 			System.out.println("Cold start ... finished after " + (coldStart) + " nanoseconds");
 			
-			tpcEOriginalSchema.startTransactionMixture(Main.inputDataFile, timestamp, difference);
+			tpcEOriginalSchema.startTransactionMixture(inputDataFile, timestamp, difference);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -139,16 +152,16 @@ public class Main {
 		
 	}
 	
-	public static void tpcEIndexed(String fileName) {
+	public static void tpcEIndexed(String inputDataFile, String outputResultFile) {
 		long start = System.nanoTime();
 
 		Main database = new Main();		
 		database.connectToMSSQL();
 
 		
-		try (FileWriter fw1 = new FileWriter(pathToResultFolderIndexes + fileName +"_timestamp.txt");
+		try (FileWriter fw1 = new FileWriter(pathToResultFolderIndexes + outputResultFile +"_timestamp.txt");
 				PrintWriter timestamp = new PrintWriter(fw1);
-					FileWriter fw2 = new FileWriter(pathToResultFolderIndexes + fileName + "_difference.txt");
+					FileWriter fw2 = new FileWriter(pathToResultFolderIndexes + outputResultFile + "_difference.txt");
 					PrintWriter difference = new PrintWriter(fw2)){
 			
 			MainMWtpcE tpcEIndexedSchema = new MainMWtpcE(database.getConnection());
@@ -169,7 +182,7 @@ public class Main {
 			long coldStart = System.nanoTime() - start;
 			System.out.println("Cold start ... finished after " + (coldStart) + " nanoseconds");
 			
-			tpcEIndexedSchema.startTransactionMixture(Main.inputDataFile, timestamp, difference);
+			tpcEIndexedSchema.startTransactionMixture(inputDataFile, timestamp, difference);
 			
 			
 		} catch (IOException e) {
@@ -180,7 +193,50 @@ public class Main {
 	}
 	
 	
-	public static void tpcEDenormalized(String fileName) {
+	public static void tpcEFullDenormalized(String inputDataFile, String outputResultFile) {
+		long start = System.nanoTime();
+		
+		Main database = new Main();		
+		database.connectToMSSQL();
+
+		try (FileWriter fw1 = new FileWriter(pathToResultFolderFullDenormalized + outputResultFile +"_timestamp.txt");
+				PrintWriter timestamp = new PrintWriter(fw1);
+					FileWriter fw2 = new FileWriter(pathToResultFolderFullDenormalized + outputResultFile + "_difference.txt");
+					PrintWriter difference = new PrintWriter(fw2)){
+
+			// Tpce Normalized schema:
+			MainDTtpcE tpcEDTSchema = new MainDTtpcE(database.getConnection());
+			
+			IndexedViewsCreator.dropIndexes(database.getConnection());
+			System.out.println("All indexes dropped ... finished");
+
+			NormalizedChemaCreator.createNormalizedDatabaseChema(database.getConnection());
+			System.out.println("Database schema creation ... finished");
+			
+			NormalizedChemaLoader.loadData(database.getConnection());
+			System.out.println("Loading data ... finished");
+
+			DenormalizedChemaCreator.createDenormalizedDatabaseChema(database.getConnection());
+			System.out.println("Denormalized schemas creation ... finished");
+
+			DenormalizedChemaLoader.loadData(database.getConnection());
+			System.out.println("Loading data to denormalized schema ... finished");
+			
+			DenormalizedChemaCreator.createIndexes(database.getConnection());
+			System.out.println("Rising indexes on columns in denormalized schema ... finished");
+			
+			long coldStart = System.nanoTime() - start;
+			System.out.println("Cold start ... finished after " + (coldStart) + " nanoseconds");
+
+			tpcEDTSchema.startTransactionMixture(inputDataFile, timestamp, difference);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}	
+/*
+	public static void tpcEPartialDenormalized(String fileName) {
 		long start = System.nanoTime();
 		
 		Main database = new Main();		
@@ -223,16 +279,24 @@ public class Main {
 		
 	}	
 	
-	
+*/	
 	public static void main(String[] args) {
 		
 		//dropSchema();
 		
-		//tpcENormalized(outputResultFile);
+		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+			
+			Main.inputDataFile = Main.inputDataFileList.get(i);
+			Main.outputResultFile = Main.outputResultFileList.get(i);
+			
+			tpcENormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
+			
+		}
+		
 		
 		//tpcEIndexed(outputResultFile);
 		
-		tpcEDenormalized(outputResultFile);
+		//tpcEDenormalized(outputResultFile);
 		
 	}
 

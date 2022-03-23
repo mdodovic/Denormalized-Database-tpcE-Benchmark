@@ -48,6 +48,9 @@ public class Main {
 
 	}
 	
+	public static String inputDataFile;
+	public static String outputResultFile;
+	
 //	public static final String inputDataFile = "inputData/T2T3T8_T2F1_read_130k.sql";
 //	public static final String outputResultFile = "T2F1_read_130k";
 	

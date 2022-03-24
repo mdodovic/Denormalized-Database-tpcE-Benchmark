@@ -108,7 +108,11 @@ public class Main {
 		try {
 			IndexedViewsCreator.dropIndexes(database.getConnection());
 
+			NormalizedChemaCreator.dropNormalizedDatabaseForeignKeysConstraints(database.getConnection());
+
 			NormalizedChemaCreator.dropNormalizedDatabaseChema(database.getConnection());
+
+			DenormalizedChemaCreator.dropDenormalizedDatabaseForeignKeysConstraints(database.getConnection());
 
 			DenormalizedChemaCreator.dropDenormalizedDatabaseChema(database.getConnection());
 
@@ -308,7 +312,7 @@ public class Main {
 */	
 	public static void main(String[] args) {
 		
-		//dropSchema();
+//		dropSchema();
 		
 		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
 			

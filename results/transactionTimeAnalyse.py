@@ -14,14 +14,14 @@ pathToNormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcE
 pathToIndexedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/indexes/";
 pathToDenormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/denormalized/";
 
-pathToResultTPCE = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/result_analyse/time_graphs/";
+pathToResultTPCE = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/results/time_graphs/";
 
 def normalized(file_name):
         
     
     file_time_stamp = file_name + "_timestamp.txt"
 
-    time_stamp_data = np.loadtxt(pathToNormalizedData + file_time_stamp, unpack=True)#ovde ubacujes disk
+    time_stamp_data = np.loadtxt(pathToNormalizedData + file_time_stamp, unpack=True)
     
     time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000
     
@@ -63,7 +63,7 @@ def indexed(file_name):
     
     file_time_stamp = file_name + "_timestamp.txt"
 
-    time_stamp_data = np.loadtxt(pathToIndexedData + file_time_stamp, unpack=True)#ovde ubacujes disk
+    time_stamp_data = np.loadtxt(pathToIndexedData + file_time_stamp, unpack=True)
     
     time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000
     
@@ -104,7 +104,7 @@ def denormalized(file_name):
     
     file_time_stamp = file_name + "_timestamp.txt"
 
-    time_stamp_data = np.loadtxt(pathToDenormalizedData + file_time_stamp, unpack=True)#ovde ubacujes disk
+    time_stamp_data = np.loadtxt(pathToDenormalizedData + file_time_stamp, unpack=True)
     
     time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000
     

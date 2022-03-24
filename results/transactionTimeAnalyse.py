@@ -23,7 +23,7 @@ def normalized(file_name):
 
     time_stamp_data = np.loadtxt(pathToNormalizedData + file_time_stamp, unpack=True)
     
-    time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000
+    time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000 # minutes
     
 
     
@@ -31,7 +31,7 @@ def normalized(file_name):
     time_stamp = np.zeros(math.ceil(time_stamp_data[-1] - time_stamp_data[0]))
     number_of_transactions = np.zeros(len(time_stamp))
     #total_time = len(time_stamp)
-    
+    """
     k = 0.
     i = 0
     cnt = 0
@@ -45,17 +45,11 @@ def normalized(file_name):
             i = i + 1
             k += 1.
             cnt += 1
-        """
-        if cnt == 0 or cnt == 12 or cnt == 13:
-            print(number_of_transactions)
-            #print(time_stamp)
-            print(k)
-            print(time)
-        """
+    """
 #    time_stamp[i] = total_time - 1
     #plt.scatter(time_stamp, number_of_transactions, s = 10)
     
-    plt.plot(time_stamp, number_of_transactions)
+    ###plt.plot(time_stamp, number_of_transactions)
  
 
 def indexed(file_name):
@@ -141,19 +135,19 @@ def denormalized(file_name):
     plt.plot(time_stamp, number_of_transactions)
 
 def read_T2F1_transactions(filename: str):
-    pass
+    normalized(filename)
 
 def write_T3F1_transactions(filename: str):
-    pass
+    normalized(filename)
 
 def write_T8F2_transactions(filename: str):
-    pass
+    normalized(filename)
 
 def write_T8F6_transactions(filename: str):
-    pass    
+    normalized(filename)
 
 def write_T3T8_transactions(filename: str):
-    pass    
+    normalized(filename)
 
 
 def main():
@@ -162,7 +156,6 @@ def main():
     write_T3F1_transactions("T3F1_write_130k")
     write_T8F2_transactions("T8F2_write_130k")
     write_T8F6_transactions("T8F6_write_130k")
-    write_T3T8_transactions("T3T8_all_write_130k")
     
 
 if __name__ == "__main__":

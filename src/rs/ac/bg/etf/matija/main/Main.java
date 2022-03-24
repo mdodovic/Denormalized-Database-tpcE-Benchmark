@@ -144,15 +144,6 @@ public class Main {
 			// Tpce Normalized schema:
 			MainNTtpcE tpcEOriginalSchema = new MainNTtpcE(database.getConnection());
 			
-			//Drop whole schematic, this will be automatically done when the new schematic is created. 
-			/*
-			try {
-				NormalizedChemaCreator.dropNormalizedDatabaseChema(database.getConnection());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			*/
-			
 			// Create normalized schema (first drop schema, then create full schema)
 			NormalizedChemaCreator.createNormalizedDatabaseChema(database.getConnection());
 			//$System.out.println(System.nanoTime() - start);
@@ -314,17 +305,18 @@ public class Main {
 		
 //		dropSchema();
 		
-		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
-			
-			Main.inputDataFile = Main.inputDataFileList.get(i);
-			Main.outputResultFile = Main.outputResultFileList.get(i);
-			
-			tpcENormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
-			
-		}
+		// Normalized schema
+//		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+//			
+//			Main.inputDataFile = Main.inputDataFileList.get(i);
+//			Main.outputResultFile = Main.outputResultFileList.get(i);
+//			
+//			tpcENormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
+//			
+//		}
 		
 		
-		//tpcEIndexed(outputResultFile);
+		tpcEIndexed(Main.inputDataFileList.get(0), Main.outputResultFileList.get(0));
 		
 		//tpcEDenormalized(outputResultFile);
 		

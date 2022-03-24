@@ -12,7 +12,10 @@ public class NormalizedChemaCreator {
 	public static void createNormalizedDatabaseChema(Connection conn) {
 		
 		try {
+			dropNormalizedDatabaseForeignKeysConstraints(conn);
+
 			dropNormalizedDatabaseChema(conn);
+
 			String createChemaQuery = "";
 			Collections.reverse(Arrays.asList(MainNTtpcE.tableNames));
 			for(String tableName: MainNTtpcE.tableNames) {
@@ -35,6 +38,38 @@ public class NormalizedChemaCreator {
 		} 
 		System.out.println("------------------------------------------------------------");
 
+	}
+
+	public static void dropNormalizedDatabaseForeignKeysConstraints(Connection conn) throws SQLException  {
+
+		String dropContraintsVariable = "DECLARE @dropConstraints NVARCHAR(MAX) = N'';\r\n";
+		
+		String dropTableConstraintsPattern = "SELECT @dropConstraints += N'\r\n" + 
+				"    ALTER TABLE [' +  OBJECT_SCHEMA_NAME(parent_object_id) +\r\n" + 
+				"    '].[' + OBJECT_NAME(parent_object_id) + \r\n" + 
+				"    '] DROP CONSTRAINT [' + name + ']'\r\n" + 
+				"FROM sys.foreign_keys\r\n" + 
+				"WHERE referenced_object_id = object_id('###')\r\n";
+		
+		String executeDroppingConstraints = "EXEC sp_executesql @dropConstraints;";
+
+		String wholeDropConstraint;
+		String dropConstraintQuery;
+		Statement stmt;
+		
+		for(String tableName: MainNTtpcE.tableNames) {
+
+			wholeDropConstraint = dropContraintsVariable + dropTableConstraintsPattern + executeDroppingConstraints;
+			
+			dropConstraintQuery = wholeDropConstraint.replace("###",  tableName);
+		
+			stmt = conn.createStatement();
+			stmt.executeUpdate(dropConstraintQuery);
+
+			System.out.println("Removed foreign keys contraint from table: " + tableName);
+
+		}
+		System.out.println("------------------------------------------------------------");
 	}
 	
 	public static void dropNormalizedDatabaseChema(Connection conn) throws SQLException  {
@@ -103,7 +138,6 @@ public class NormalizedChemaCreator {
 			System.out.println("Index: " + indexName + " successfully created");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

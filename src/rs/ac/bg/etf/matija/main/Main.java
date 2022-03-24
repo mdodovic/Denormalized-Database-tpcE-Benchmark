@@ -315,8 +315,16 @@ public class Main {
 //			
 //		}
 		
+		// Materialized view 
+		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+			
+			Main.inputDataFile = Main.inputDataFileList.get(i);
+			Main.outputResultFile = Main.outputResultFileList.get(i);
+			
+			tpcEIndexed(Main.inputDataFileList.get(0), Main.outputResultFileList.get(0));
 		
-		tpcEIndexed(Main.inputDataFileList.get(0), Main.outputResultFileList.get(0));
+		}
+
 		
 		//tpcEDenormalized(outputResultFile);
 		

@@ -27,7 +27,7 @@ public class IndexedViewsCreator {
 					"WITH SCHEMABINDING\r\n" + 
 					"AS  \r\n" + 
 					"	SELECT CA_C_ID, CA_ID, CA_BAL, ((sum(HS_QTY * LT_PRICE))) as RES_SUM, COUNT_BIG(*) AS CB\r\n" + 
-					"    FROM [tpcE].[dbo].CUSTOMER_ACCOUNT inner join [tpcE].[dbo].HOLDING_SUMMARY on HS_CA_ID = CA_ID, [tpcE].[dbo].LAST_TRADE\r\n" + 
+					"    FROM [dbo].[CUSTOMER_ACCOUNT] inner join [dbo].[HOLDING_SUMMARY] on HS_CA_ID = CA_ID, [dbo].[LAST_TRADE]\r\n" + 
 					"	WHERE LT_S_SYMB = HS_S_SYMB\r\n" + 
 					"	group by CA_C_ID, CA_ID, CA_BAL";
 			

@@ -6,9 +6,6 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collections;
 
-import rs.ac.bg.etf.matija.DTtpcE.Full.MainFullDTtpcE;
-import rs.ac.bg.etf.matija.NTtpcE.MainNTtpcE;
-
 public class FullDenormalizedChemaCreator {
 
 	

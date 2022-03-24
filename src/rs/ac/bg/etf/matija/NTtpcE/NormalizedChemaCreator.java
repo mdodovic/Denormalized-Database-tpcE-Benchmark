@@ -8,13 +8,19 @@ import java.sql.Statement;
 public class NormalizedChemaCreator {
 	
 	public static void createNormalizedDatabaseChema(Connection conn) {
-		
+
+		Statement stmt;
+		String createChemaQuery = "";
+		String createConstraintQuery = "";
+
 		try {
 			dropNormalizedDatabaseForeignKeysConstraints(conn);
 
 			dropNormalizedDatabaseChema(conn);
-
-			String createChemaQuery = "";
+			
+			// create tables
+			
+			createChemaQuery = "";
 			// Collections.reverse(Arrays.asList(MainNTtpcE.tableNames));
 			for(String tableName: MainNTtpcE.tableNames) {
 				
@@ -22,16 +28,21 @@ public class NormalizedChemaCreator {
 				
 			}
 
-			for(String tableName: MainNTtpcE.tableNames) {
-				
-				createChemaQuery += createConstraintsTableQuerry(tableName) + "\r\n";
-				
-			}
-
-			
-			Statement stmt;
 			stmt = conn.createStatement();
 			stmt.executeUpdate(createChemaQuery);
+
+			// create primary and foreign keys constraints
+
+			createConstraintQuery = "";
+			for(String tableName: MainNTtpcE.tableNames) {
+				
+				createConstraintQuery = createConstraintsTableQuerry(tableName) + "\r\n";
+				stmt = conn.createStatement();
+				stmt.executeUpdate(createConstraintQuery);
+				
+			}
+			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

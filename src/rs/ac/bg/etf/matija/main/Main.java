@@ -86,6 +86,18 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
+
+	public void disconnectFromMSSQL() {
+		try {
+			
+			if(connection != null) {
+				connection.close();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void dropSchema() {
 		Main database = new Main();		
@@ -102,7 +114,10 @@ public class Main {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			database.disconnectFromMSSQL();
 		}
+
 		
 	}
 	
@@ -151,6 +166,8 @@ public class Main {
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			database.disconnectFromMSSQL();
 		}
 		
 	}
@@ -190,6 +207,8 @@ public class Main {
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			database.disconnectFromMSSQL();
 		}
 		
 
@@ -235,6 +254,8 @@ public class Main {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			database.disconnectFromMSSQL();
 		}
 		
 	}	
@@ -278,6 +299,8 @@ public class Main {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			database.disconnectFromMSSQL();
 		}
 		
 	}	

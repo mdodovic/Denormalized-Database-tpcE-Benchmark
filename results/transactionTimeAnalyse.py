@@ -146,15 +146,15 @@ def write_T8F2_transactions(filename: str):
 def write_T8F6_transactions(filename: str):
     normalized(filename)
 
-def write_T3T8_transactions(filename: str):
-    normalized(filename)
-
 
 def main():
-    
+    print("SELECT")    
     read_T2F1_transactions("T2F1_read_130k")
+    print("UPDATE - T3F1")    
     write_T3F1_transactions("T3F1_write_130k")
+    print("UPDATE - T8F2")    
     write_T8F2_transactions("T8F2_write_130k")
+    print("UPDATE - T8F6")    
     write_T8F6_transactions("T8F6_write_130k")
     
 

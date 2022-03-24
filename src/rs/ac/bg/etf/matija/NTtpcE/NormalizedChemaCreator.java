@@ -36,10 +36,11 @@ public class NormalizedChemaCreator {
 			createConstraintQuery = "";
 			for(String tableName: MainNTtpcE.tableNames) {
 				
-				createConstraintQuery = createConstraintsTableQuerry(tableName) + "\r\n";
-				stmt = conn.createStatement();
-				stmt.executeUpdate(createConstraintQuery);
-				
+				createConstraintQuery = createConstraintsTableQuerry(tableName);
+				if(createConstraintQuery != null) {
+					stmt = conn.createStatement();
+					stmt.executeUpdate(createConstraintQuery);
+				}
 			}
 			
 

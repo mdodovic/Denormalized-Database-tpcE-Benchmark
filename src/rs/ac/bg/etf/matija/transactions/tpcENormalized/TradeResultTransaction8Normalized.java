@@ -18,7 +18,7 @@ public class TradeResultTransaction8Normalized extends TradeResultTransaction8{
 
 	public void invokeTradeResultFrame2() {
 		
-		String updateHoldingSummary = "update HOLDING_SUMMARY "
+		String updateHoldingSummary = "update [tpcE].[dbo].[HOLDING_SUMMARY] "
 				+ "set HS_QTY = ? + ? "
 				+ "where HS_CA_ID = ? and HS_S_SYMB = ?";
 		// Index is established already: PK = (HS_CA_ID, HS_S_SYMB);
@@ -54,7 +54,7 @@ public class TradeResultTransaction8Normalized extends TradeResultTransaction8{
 	
 	public void invokeTradeResultFrame6() {
 		
-		String updateLastTrade = "update CUSTOMER_ACCOUNT "
+		String updateLastTrade = "update [tpcE].[dbo].[CUSTOMER_ACCOUNT] "
 				+ "set CA_BAL = CA_BAL + ? "
 				+ "WHERE CA_ID = ?";
 		// Index is established already: PK = (CA_ID);

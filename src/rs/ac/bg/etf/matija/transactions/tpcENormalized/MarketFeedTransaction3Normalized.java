@@ -38,7 +38,7 @@ public class MarketFeedTransaction3Normalized extends MarketFeedTransaction3{
 		for(int i = 0; i < price_quote.length/*Constraints.max_feed_len*/; i++) {
 			// must be as a signle transaction with rollback mechanism
 
-			String updateLastTrade = "update LAST_TRADE "
+			String updateLastTrade = "update [tpcE].[dbo].[LAST_TRADE] "
 					+ "set LT_PRICE = ?, LT_VOL = LT_VOL + ?, LT_DTS = ?  "
 					+ "WHERE LT_S_SYMB = ?";
 

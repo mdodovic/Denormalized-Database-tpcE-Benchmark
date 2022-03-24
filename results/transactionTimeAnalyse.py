@@ -140,16 +140,44 @@ def denormalized(file_name):
     
     plt.plot(time_stamp, number_of_transactions)
 
+def read_T2F1_transactions(filename: str):
+    pass
+
+def write_T3F1_transactions(filename: str):
+    pass
+
+def write_T8F2_transactions(filename: str):
+    pass
+
+def write_T8F6_transactions(filename: str):
+    pass    
+
+def write_T3T8_transactions(filename: str):
+    pass    
+
+
+def main():
+    
+    read_T2F1_transactions("T2F1_read_130k")
+    write_T3F1_transactions("T3F1_write_130k")
+    write_T8F2_transactions("T8F2_write_130k")
+    write_T8F6_transactions("T8F6_write_130k")
+    write_T3T8_transactions("T3T8_all_write_130k")
+    
 
 if __name__ == "__main__":
            
+    main()    
+
+"""
+    
     file_name = "T2F1_read_130k"
     
     normalized(file_name)
-    indexed(file_name)
-    denormalized(file_name)
-    file_name = "T2F1_read_130k_test2"
-    denormalized(file_name)
+#    indexed(file_name)
+#    denormalized(file_name)
+#    file_name = "T2F1_read_130k_test2"
+#    denormalized(file_name)
     
     
     plt.xlabel("time [minutes]")
@@ -230,7 +258,8 @@ if __name__ == "__main__":
     #plt.savefig(pathToResultTPCE + file_name + ".png", dpi = 90)
     plt.show()
     
-    """
+"""
+"""
     Brisi 
     file_difference = transaction_type + "difference.txt"
 
@@ -264,4 +293,4 @@ if __name__ == "__main__":
     #plt.savefig(pathToResultTPCE + "F(t)_" + transaction_type + "_1m3k.png", dpi = 90)
     plt.show()
     
-    """
+"""

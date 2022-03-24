@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class DenormalizedChemaLoader {
+public class FullDenormalizedChemaLoader {
 
 	public static void loadData(Connection databaseConnection) {
 		// This will fill Denormalize schema with data from Normalized schema

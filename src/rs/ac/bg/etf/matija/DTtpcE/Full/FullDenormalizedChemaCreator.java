@@ -6,10 +6,10 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collections;
 
-import rs.ac.bg.etf.matija.DTtpcE.Full.MainDTtpcE;
+import rs.ac.bg.etf.matija.DTtpcE.Full.MainFullDTtpcE;
 import rs.ac.bg.etf.matija.NTtpcE.MainNTtpcE;
 
-public class DenormalizedChemaCreator {
+public class FullDenormalizedChemaCreator {
 
 	
 	public static void createDenormalizedDatabaseChema(Connection conn) {
@@ -21,8 +21,8 @@ public class DenormalizedChemaCreator {
 			dropDenormalizedDatabaseChema(conn);
 
 			String createChemaQuery = "";
-			Collections.reverse(Arrays.asList(MainDTtpcE.denormalizedTableNames));
-			for(String tableName: MainDTtpcE.denormalizedTableNames) {
+			Collections.reverse(Arrays.asList(MainFullDTtpcE.denormalizedTableNames));
+			for(String tableName: MainFullDTtpcE.denormalizedTableNames) {
 				
 				createChemaQuery += createTableQuerry(tableName) + "\r\n";
 				
@@ -36,7 +36,7 @@ public class DenormalizedChemaCreator {
 			e.printStackTrace();
 		}
 		
-		for(String tableName: MainDTtpcE.denormalizedTableNames) {
+		for(String tableName: MainFullDTtpcE.denormalizedTableNames) {
 
 			System.out.println("Table " + tableName + " successfully created");
 			
@@ -62,7 +62,7 @@ public class DenormalizedChemaCreator {
 		String dropConstraintQuery;
 		Statement stmt;
 		
-		for(String tableName: MainDTtpcE.denormalizedTableNames) {
+		for(String tableName: MainFullDTtpcE.denormalizedTableNames) {
 
 			wholeDropConstraint = dropContraintsVariable + dropTableConstraintsPattern + executeDroppingConstraints;
 			
@@ -85,7 +85,7 @@ public class DenormalizedChemaCreator {
 		String dropQuery;
 		Statement stmt;
 		
-		for(String tableName: MainDTtpcE.denormalizedTableNames) {
+		for(String tableName: MainFullDTtpcE.denormalizedTableNames) {
 			dropQuery = dropQueryPattern.replace("###",  tableName);
 		
 			stmt = conn.createStatement();

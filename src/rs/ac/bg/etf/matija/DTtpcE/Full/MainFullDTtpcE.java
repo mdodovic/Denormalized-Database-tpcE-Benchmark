@@ -20,7 +20,7 @@ import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.CustomerPositionT
 import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.MarketFeedTransaction3Denormalized;
 import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.TradeResultTransaction8Denormalized;
 
-public class MainDTtpcE {
+public class MainFullDTtpcE {
 
 	
 	private Connection connection;
@@ -31,7 +31,7 @@ public class MainDTtpcE {
 			"DTT2T3T8"
 	};
 
-	public MainDTtpcE(Connection connection) {
+	public MainFullDTtpcE(Connection connection) {
 		this.connection = connection;
 	}
 

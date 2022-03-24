@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import rs.ac.bg.etf.matija.DTtpcE.Full.DenormalizedChemaCreator;
-import rs.ac.bg.etf.matija.DTtpcE.Full.DenormalizedChemaLoader;
-import rs.ac.bg.etf.matija.DTtpcE.Full.MainDTtpcE;
+import rs.ac.bg.etf.matija.DTtpcE.Full.FullDenormalizedChemaCreator;
+import rs.ac.bg.etf.matija.DTtpcE.Full.FullDenormalizedChemaLoader;
+import rs.ac.bg.etf.matija.DTtpcE.Full.MainFullDTtpcE;
 import rs.ac.bg.etf.matija.MWtpcE.IndexedViewsCreator;
 import rs.ac.bg.etf.matija.MWtpcE.MainMWtpcE;
 import rs.ac.bg.etf.matija.NTtpcE.MainNTtpcE;
@@ -112,9 +112,9 @@ public class Main {
 
 			NormalizedChemaCreator.dropNormalizedDatabaseChema(database.getConnection());
 
-			DenormalizedChemaCreator.dropDenormalizedDatabaseForeignKeysConstraints(database.getConnection());
+			FullDenormalizedChemaCreator.dropDenormalizedDatabaseForeignKeysConstraints(database.getConnection());
 
-			DenormalizedChemaCreator.dropDenormalizedDatabaseChema(database.getConnection());
+			FullDenormalizedChemaCreator.dropDenormalizedDatabaseChema(database.getConnection());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -231,7 +231,7 @@ public class Main {
 					PrintWriter difference = new PrintWriter(fw2)){
 
 			// Tpce Normalized schema:
-			MainDTtpcE tpcEDTSchema = new MainDTtpcE(database.getConnection());
+			MainFullDTtpcE tpcEDTSchema = new MainFullDTtpcE(database.getConnection());
 			
 			IndexedViewsCreator.dropIndexes(database.getConnection());
 			System.out.println("All indexes dropped ... finished");
@@ -242,13 +242,13 @@ public class Main {
 			NormalizedChemaLoader.loadData(database.getConnection());
 			System.out.println("Loading data ... finished");
 
-			DenormalizedChemaCreator.createDenormalizedDatabaseChema(database.getConnection());
+			FullDenormalizedChemaCreator.createDenormalizedDatabaseChema(database.getConnection());
 			System.out.println("Denormalized schemas creation ... finished");
 
-			DenormalizedChemaLoader.loadData(database.getConnection());
+			FullDenormalizedChemaLoader.loadData(database.getConnection());
 			System.out.println("Loading data to denormalized schema ... finished");
 			
-			DenormalizedChemaCreator.createIndexes(database.getConnection());
+			FullDenormalizedChemaCreator.createIndexes(database.getConnection());
 			System.out.println("Rising indexes on columns in denormalized schema ... finished");
 			
 			long coldStart = System.nanoTime() - start;

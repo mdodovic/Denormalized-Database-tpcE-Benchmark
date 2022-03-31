@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.matija.DTtpcE.Test2;
+package rs.ac.bg.etf.matija.DTtpcE.Partial;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DenormalizedChemaLoader {
+public class PartialDenormalizedChemaLoader {
 
 	public static void loadData(Connection databaseConnection) {
 		// This will fill Denormalize schema with data from Normalized schema

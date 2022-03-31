@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.matija.DTtpcE.Test2;
+package rs.ac.bg.etf.matija.DTtpcE.Partial;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,20 +6,20 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collections;
 
-import rs.ac.bg.etf.matija.DTtpcE.Test2.MainDTtpcE;
-
-
-public class DenormalizedChemaCreator {
+public class PartialDenormalizedChemaCreator {
 
 	
 	public static void createDenormalizedDatabaseChema(Connection conn) {
 		
 		try {
+			
+			dropDenormalizedDatabaseForeignKeysConstraints(conn);
+			
 			dropDenormalizedDatabaseChema(conn);
 
 			String createChemaQuery = "";
-			Collections.reverse(Arrays.asList(MainDTtpcE.denormalizedTableNames));
-			for(String tableName: MainDTtpcE.denormalizedTableNames) {
+			Collections.reverse(Arrays.asList(MainPartialDTtpcE.denormalizedTableNames));
+			for(String tableName: MainPartialDTtpcE.denormalizedTableNames) {
 				
 				createChemaQuery += createTableQuerry(tableName) + "\r\n";
 				
@@ -33,7 +33,7 @@ public class DenormalizedChemaCreator {
 			e.printStackTrace();
 		}
 		
-		for(String tableName: MainDTtpcE.denormalizedTableNames) {
+		for(String tableName: MainPartialDTtpcE.denormalizedTableNames) {
 
 			System.out.println("Table " + tableName + " successfully created");
 			
@@ -41,6 +41,40 @@ public class DenormalizedChemaCreator {
 		System.out.println("------------------------------------------------------------");
 
 	}
+	
+	public static void dropDenormalizedDatabaseForeignKeysConstraints(Connection conn) throws SQLException  {
+
+		String dropContraintsVariable = "DECLARE @dropConstraints NVARCHAR(MAX) = N'';\r\n";
+		
+		String dropTableConstraintsPattern = "SELECT @dropConstraints += N'\r\n" + 
+				"    ALTER TABLE [' +  OBJECT_SCHEMA_NAME(parent_object_id) +\r\n" + 
+				"    '].[' + OBJECT_NAME(parent_object_id) + \r\n" + 
+				"    '] DROP CONSTRAINT [' + name + ']'\r\n" + 
+				"FROM sys.foreign_keys\r\n" + 
+				"WHERE referenced_object_id = object_id('###')\r\n";
+		
+		String executeDroppingConstraints = "EXEC sp_executesql @dropConstraints;";
+
+		String wholeDropConstraint;
+		String dropConstraintQuery;
+		Statement stmt;
+		
+		for(String tableName: MainPartialDTtpcE.denormalizedTableNames) {
+
+			wholeDropConstraint = dropContraintsVariable + dropTableConstraintsPattern + executeDroppingConstraints;
+			
+			dropConstraintQuery = wholeDropConstraint.replace("###",  tableName);
+		
+			stmt = conn.createStatement();
+			stmt.executeUpdate(dropConstraintQuery);
+
+			System.out.println("Removed foreign keys contraint from table: " + tableName);
+
+		}
+		System.out.println("------------------------------------------------------------");
+	}
+	
+	
 	
 	public static void dropDenormalizedDatabaseChema(Connection conn) throws SQLException  {
 		
@@ -50,7 +84,7 @@ public class DenormalizedChemaCreator {
 		String dropQuery;
 		Statement stmt;
 		
-		for(String tableName: MainDTtpcE.denormalizedTableNames) {
+		for(String tableName: MainPartialDTtpcE.denormalizedTableNames) {
 			dropQuery = dropQueryPattern.replace("###",  tableName);
 		
 			stmt = conn.createStatement();

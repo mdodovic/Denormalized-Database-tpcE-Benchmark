@@ -12,6 +12,9 @@ import java.util.List;
 import rs.ac.bg.etf.matija.DTtpcE.Full.FullDenormalizedChemaCreator;
 import rs.ac.bg.etf.matija.DTtpcE.Full.FullDenormalizedChemaLoader;
 import rs.ac.bg.etf.matija.DTtpcE.Full.MainFullDTtpcE;
+import rs.ac.bg.etf.matija.DTtpcE.Partial.MainPartialDTtpcE;
+import rs.ac.bg.etf.matija.DTtpcE.Partial.PartialDenormalizedChemaCreator;
+import rs.ac.bg.etf.matija.DTtpcE.Partial.PartialDenormalizedChemaLoader;
 import rs.ac.bg.etf.matija.MWtpcE.IndexedViewsCreator;
 import rs.ac.bg.etf.matija.MWtpcE.MainMWtpcE;
 import rs.ac.bg.etf.matija.NTtpcE.MainNTtpcE;
@@ -254,20 +257,20 @@ public class Main {
 		}
 		
 	}	
-/*
-	public static void tpcEPartialDenormalized(String fileName) {
+
+	public static void tpcEPartialDenormalized(String inputDataFile, String outputResultFile) {
 		long start = System.nanoTime();
 		
 		Main database = new Main();		
 		database.connectToMSSQL();
 
-		try (FileWriter fw1 = new FileWriter(pathToResultFolderDenormalized + fileName +"_timestamp.txt");
+		try (FileWriter fw1 = new FileWriter(pathToResultFolderPartialDenormalized + outputResultFile +"_timestamp.txt");
 				PrintWriter timestamp = new PrintWriter(fw1);
-					FileWriter fw2 = new FileWriter(pathToResultFolderDenormalized + fileName + "_difference.txt");
+					FileWriter fw2 = new FileWriter(pathToResultFolderPartialDenormalized + outputResultFile + "_difference.txt");
 					PrintWriter difference = new PrintWriter(fw2)){
 
 			// Tpce Normalized schema:
-			MainDTtpcE tpcEDTSchema = new MainDTtpcE(database.getConnection());
+			MainPartialDTtpcE tpcEDTSchema = new MainPartialDTtpcE(database.getConnection());
 			
 			IndexedViewsCreator.dropIndexes(database.getConnection());
 			System.out.println("All indexes dropped ... finished");
@@ -278,19 +281,19 @@ public class Main {
 			NormalizedChemaLoader.loadData(database.getConnection());
 			System.out.println("Loading data ... finished");
 
-			DenormalizedChemaCreator.createDenormalizedDatabaseChema(database.getConnection());
+			PartialDenormalizedChemaCreator.createDenormalizedDatabaseChema(database.getConnection());
 			System.out.println("Denormalized schemas creation ... finished");
 
-			DenormalizedChemaLoader.loadData(database.getConnection());
+			PartialDenormalizedChemaLoader.loadData(database.getConnection());
 			System.out.println("Loading data to denormalized schema ... finished");
 			
-			DenormalizedChemaCreator.createIndexes(database.getConnection());
+			PartialDenormalizedChemaCreator.createIndexes(database.getConnection());
 			System.out.println("Rising indexes on columns in denormalized schema ... finished");
 			
 			long coldStart = System.nanoTime() - start;
 			System.out.println("Cold start ... finished after " + (coldStart) + " nanoseconds");
 
-			tpcEDTSchema.startTransactionMixture(Main.inputDataFile, timestamp, difference);
+			tpcEDTSchema.startTransactionMixture(inputDataFile, timestamp, difference);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -300,7 +303,7 @@ public class Main {
 		
 	}	
 	
-*/	
+
 	public static void main(String[] args) {
 		
 //		dropSchema();
@@ -325,16 +328,26 @@ public class Main {
 //		
 //		}
 
-		// Denormalized schema
-		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+		// Full Denormalized schema
+//		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+//			
+//			Main.inputDataFile = Main.inputDataFileList.get(i);
+//			Main.outputResultFile = Main.outputResultFileList.get(i);
+//			
+//			tpcEFullDenormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
+//		
+//		}
+		
+		// Partial Denormalized schema
+		for(int i = 0; i < 1; /*Main.inputDataFileList.size(); */i++) {
 			
 			Main.inputDataFile = Main.inputDataFileList.get(i);
 			Main.outputResultFile = Main.outputResultFileList.get(i);
 			
-			tpcEFullDenormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
+			tpcEPartialDenormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
 		
 		}
-		
+
 		
 	}
 

@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.matija.DTtpcE.Test2;
+package rs.ac.bg.etf.matija.DTtpcE.Partial;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,11 +16,11 @@ import rs.ac.bg.etf.matija.main.Main;
 import rs.ac.bg.etf.matija.transactions.CustomerPositionTransaction2;
 import rs.ac.bg.etf.matija.transactions.MarketFeedTransaction3;
 import rs.ac.bg.etf.matija.transactions.TradeResultTransaction8;
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test2.CustomerPositionTransaction2Denormalized;
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.MarketFeedTransaction3Denormalized; // same as test 1
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test2.TradeResultTransaction8Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Full.MarketFeedTransaction3Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Partial.CustomerPositionTransaction2Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Partial.TradeResultTransaction8Denormalized;
 
-public class MainDTtpcE {
+public class MainPartialDTtpcE {
 
 	
 	private Connection connection;
@@ -32,7 +32,7 @@ public class MainDTtpcE {
 			"DTT8F6"
 	};
 
-	public MainDTtpcE(Connection connection) {
+	public MainPartialDTtpcE(Connection connection) {
 		this.connection = connection;
 	}
 

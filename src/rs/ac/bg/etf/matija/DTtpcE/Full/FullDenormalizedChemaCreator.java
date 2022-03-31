@@ -159,7 +159,6 @@ public class FullDenormalizedChemaCreator {
 			System.out.println("Index: " + indexName + " successfully created");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

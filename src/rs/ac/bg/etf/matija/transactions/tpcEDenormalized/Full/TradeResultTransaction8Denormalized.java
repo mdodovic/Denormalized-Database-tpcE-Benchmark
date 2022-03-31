@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1;
+package rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Full;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -16,9 +16,9 @@ import rs.ac.bg.etf.matija.main.Main;
 import rs.ac.bg.etf.matija.transactions.CustomerPositionTransaction2;
 import rs.ac.bg.etf.matija.transactions.MarketFeedTransaction3;
 import rs.ac.bg.etf.matija.transactions.TradeResultTransaction8;
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.CustomerPositionTransaction2Denormalized;
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.MarketFeedTransaction3Denormalized;
-import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Test1.TradeResultTransaction8Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Full.CustomerPositionTransaction2Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Full.MarketFeedTransaction3Denormalized;
+import rs.ac.bg.etf.matija.transactions.tpcEDenormalized.Full.TradeResultTransaction8Denormalized;
 
 public class MainFullDTtpcE {
 

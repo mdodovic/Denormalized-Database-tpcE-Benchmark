@@ -89,18 +89,15 @@ def indexed(file_name):
     
 ###    plt.plot(time_stamp, number_of_transactions)
 
-def denormalized(file_name):
+def full_denormalized(file_name):
         
-    
     file_time_stamp = file_name + "_timestamp.txt"
 
-    time_stamp_data = np.loadtxt(pathToDenormalizedData + file_time_stamp, unpack=True)
+    time_stamp_data = np.loadtxt(pathToFullDenormalizedData + file_time_stamp, unpack=True)
     
-    time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000
-    
-
-    
-    print("[Denormalized]: ", round(time_stamp_data[-1] - time_stamp_data[0],2))
+    time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000 
+        
+    print("[Full Denormalized]: ", round(time_stamp_data[-1] - time_stamp_data[0],2))
     time_stamp = np.zeros(math.ceil(time_stamp_data[-1] - time_stamp_data[0]))
     number_of_transactions = np.zeros(len(time_stamp))
     #total_time = len(time_stamp)
@@ -124,21 +121,63 @@ def denormalized(file_name):
     
     ###plt.plot(time_stamp, number_of_transactions)
 
+
+def partial_denormalized(file_name):
+        
+    file_time_stamp = file_name + "_timestamp.txt"
+
+    time_stamp_data = np.loadtxt(pathToPartialDenormalizedData + file_time_stamp, unpack=True)
+    
+    time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000 
+        
+    print("[Full Denormalized]: ", round(time_stamp_data[-1] - time_stamp_data[0],2))
+    time_stamp = np.zeros(math.ceil(time_stamp_data[-1] - time_stamp_data[0]))
+    number_of_transactions = np.zeros(len(time_stamp))
+    #total_time = len(time_stamp)
+    """
+    k = 0.
+    i = 0
+    cnt = 0
+    for time in time_stamp_data:
+        if time_stamp[i] == 0:
+            time_stamp[i] = k
+        if k <= time and time < k + 1:
+            number_of_transactions[i] += 1#e-5
+        else:
+#            time_stamp[i] = k
+            i = i + 1
+            k += 1.
+            cnt += 1
+    """
+#    time_stamp[i] = total_time - 1
+    #plt.scatter(time_stamp, number_of_transactions, s = 10)
+    
+    ###plt.plot(time_stamp, number_of_transactions)
+
+
 def read_T2F1_transactions(filename: str):
     normalized(filename)
     indexed(filename)
+    full_denormalized(filename)
+#    partial_denormalized(filename)
 
 def write_T3F1_transactions(filename: str):
     normalized(filename)
     indexed(filename)
+    full_denormalized(filename)
+#    partial_denormalized(filename)
 
 def write_T8F2_transactions(filename: str):
     normalized(filename)
     indexed(filename)
+    full_denormalized(filename)
+#    partial_denormalized(filename)
 
 def write_T8F6_transactions(filename: str):
     normalized(filename)
     indexed(filename)
+    full_denormalized(filename)
+#    partial_denormalized(filename)
 
 
 def main():

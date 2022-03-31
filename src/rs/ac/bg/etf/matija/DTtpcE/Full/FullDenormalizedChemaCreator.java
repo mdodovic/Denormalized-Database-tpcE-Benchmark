@@ -3,8 +3,6 @@ package rs.ac.bg.etf.matija.DTtpcE.Full;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class FullDenormalizedChemaCreator {
 
@@ -18,7 +16,7 @@ public class FullDenormalizedChemaCreator {
 			dropDenormalizedDatabaseChema(conn);
 
 			String createChemaQuery = "";
-			Collections.reverse(Arrays.asList(MainFullDTtpcE.denormalizedTableNames));
+
 			for(String tableName: MainFullDTtpcE.denormalizedTableNames) {
 				
 				createChemaQuery += createTableQuerry(tableName) + "\r\n";

@@ -3,8 +3,6 @@ package rs.ac.bg.etf.matija.DTtpcE.Partial;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class PartialDenormalizedChemaCreator {
 
@@ -18,7 +16,7 @@ public class PartialDenormalizedChemaCreator {
 			dropDenormalizedDatabaseChema(conn);
 
 			String createChemaQuery = "";
-			Collections.reverse(Arrays.asList(MainPartialDTtpcE.denormalizedTableNames));
+
 			for(String tableName: MainPartialDTtpcE.denormalizedTableNames) {
 				
 				createChemaQuery += createTableQuerry(tableName) + "\r\n";

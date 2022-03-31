@@ -316,17 +316,25 @@ public class Main {
 //		}
 		
 		// Materialized view 
+//		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
+//			
+//			Main.inputDataFile = Main.inputDataFileList.get(i);
+//			Main.outputResultFile = Main.outputResultFileList.get(i);
+//			
+//			tpcEIndexed(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
+//		
+//		}
+
+		// Denormalized schema
 		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
 			
 			Main.inputDataFile = Main.inputDataFileList.get(i);
 			Main.outputResultFile = Main.outputResultFileList.get(i);
 			
-			tpcEIndexed(Main.inputDataFileList.get(0), Main.outputResultFileList.get(0));
+			tpcEFullDenormalized(Main.inputDataFileList.get(i), Main.outputResultFileList.get(i));
 		
 		}
-
 		
-		//tpcEDenormalized(outputResultFile);
 		
 	}
 

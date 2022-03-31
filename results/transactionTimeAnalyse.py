@@ -12,7 +12,8 @@ import math as math
 
 pathToNormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/normalized/";
 pathToIndexedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/indexes/";
-pathToDenormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/denormalized/";
+pathToFullDenormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/full_denormalized/";
+pathToPartialDenormalizedData = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/src/time_results/partial_denormalized/";
 
 pathToResultTPCE = "C:/Users/Matija/Desktop/Fakultet/DiplomskiRad/TPC-E/tpcEBanchmark/results/time_graphs/";
 

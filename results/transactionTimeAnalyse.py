@@ -130,7 +130,7 @@ def partial_denormalized(file_name):
     
     time_stamp_data = (time_stamp_data - time_stamp_data[0]) / 1000 / 60 / 1000000 
         
-    print("[Full Denormalized]: ", round(time_stamp_data[-1] - time_stamp_data[0],2))
+    print("[Partial Denormalized]: ", round(time_stamp_data[-1] - time_stamp_data[0],2))
     time_stamp = np.zeros(math.ceil(time_stamp_data[-1] - time_stamp_data[0]))
     number_of_transactions = np.zeros(len(time_stamp))
     #total_time = len(time_stamp)
@@ -159,25 +159,25 @@ def read_T2F1_transactions(filename: str):
     normalized(filename)
     indexed(filename)
     full_denormalized(filename)
-#    partial_denormalized(filename)
+    partial_denormalized(filename)
 
 def write_T3F1_transactions(filename: str):
     normalized(filename)
     indexed(filename)
     full_denormalized(filename)
-#    partial_denormalized(filename)
+    partial_denormalized(filename)
 
 def write_T8F2_transactions(filename: str):
     normalized(filename)
     indexed(filename)
     full_denormalized(filename)
-#    partial_denormalized(filename)
+    partial_denormalized(filename)
 
 def write_T8F6_transactions(filename: str):
     normalized(filename)
     indexed(filename)
     full_denormalized(filename)
-#    partial_denormalized(filename)
+    partial_denormalized(filename)
 
 
 def main():

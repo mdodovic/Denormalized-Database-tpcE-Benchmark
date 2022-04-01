@@ -339,7 +339,7 @@ public class Main {
 //		}
 		
 		// Partial Denormalized schema
-		for(int i = 0; i < 1; /*Main.inputDataFileList.size(); */i++) {
+		for(int i = 0; i < Main.inputDataFileList.size(); i++) {
 			
 			Main.inputDataFile = Main.inputDataFileList.get(i);
 			Main.outputResultFile = Main.outputResultFileList.get(i);

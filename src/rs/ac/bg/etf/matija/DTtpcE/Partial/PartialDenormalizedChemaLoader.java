@@ -18,12 +18,13 @@ public class PartialDenormalizedChemaLoader {
 				"\r\n" + 
 				"WHERE LT_S_SYMB = HS_S_SYMB and C_ID = CA_C_ID ";
 		
-		System.out.println("Fetch data for denormalized table ... finished");
 		int total = 0;
 		int successfull = 0;
 		
 		try (Statement stmt = databaseConnection.createStatement();
 			ResultSet rs = stmt.executeQuery(getDataForDTT2T3T8F2)){
+
+			System.out.println("Fetch data for denormalized table [DTT2T3T8F2] ... finished");
 				
 			while(rs.next()) {
 				
@@ -47,6 +48,12 @@ public class PartialDenormalizedChemaLoader {
 			e.printStackTrace(); 
 		}
 
+		System.out.println("Total loaded rows: " + successfull + " (" + 
+				String.format("%.2f", 100. * successfull / total) + "%) in table [DTT2T3T8F2]");
+
+
+		total = 0;
+		successfull = 0;
 		
 		String getDataForDTT8F6 = "SELECT CA_ID, CA_BAL\r\n" + 
 				"\r\n" + 
@@ -58,7 +65,9 @@ public class PartialDenormalizedChemaLoader {
 		
 		try (Statement stmt = databaseConnection.createStatement();
 				ResultSet rs = stmt.executeQuery(getDataForDTT8F6)){
-					
+
+				System.out.println("Fetch data for denormalized table [DTT8F6] ... finished");
+			
 				while(rs.next()) {
 					
 					boolean successfullyInserted = insertIntoDatabaseDTT8F6(databaseConnection, 
@@ -80,7 +89,7 @@ public class PartialDenormalizedChemaLoader {
 			}
 
 		System.out.println("Total loaded rows: " + successfull + " (" + 
-				String.format("%.2f", 100. * successfull / total) + "%)");
+				String.format("%.2f", 100. * successfull / total) + "%) in table [DTT8F6]");
 					
 	
 	}
